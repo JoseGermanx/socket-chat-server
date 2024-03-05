@@ -16,7 +16,18 @@ io.on('connection', (socket) => {
 
     socket.on('chat_message', (data) => {
         io.emit('chat_message', data);
+        console.log(data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Se ha desconectado un cliente');
+        socket.broadcast.emit('chat_message', {
+            usuario: 'INFO',
+            mensaje: 'Se ha desconectado un usuario'
+        });
     });
 });
+
+
 
 server.listen(4000);
